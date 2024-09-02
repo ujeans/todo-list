@@ -6,31 +6,31 @@ export const buttonColorMap = {
     background-color: ${colors.slate200};
     border: 2px solid ${colors.slate900};
     color: ${colors.slate900};
-    box-shadow: 4px 4px ${colors.slate900};
+    box-shadow: 1px 4px ${colors.slate900};
   `,
   delete: css`
     background-color: ${colors.rose500};
     border: 2px solid ${colors.slate900};
     color: ${colors.white};
-    box-shadow: 4px 4px ${colors.slate900};
+    box-shadow: 1px 4px ${colors.slate900};
   `,
   add: css`
     background-color: ${colors.violet600};
     border: 2px solid ${colors.slate900};
     color: ${colors.white};
-    box-shadow: 4px 4px ${colors.slate900};
+    box-shadow: 1px 4px ${colors.slate900};
   `,
   edit: css`
     background-color: ${colors.lime300};
     border: 2px solid ${colors.slate900};
     color: ${colors.slate900};
-    box-shadow: 4px 4px ${colors.slate900};
+    box-shadow: 1px 4px ${colors.slate900};
   `,
 };
 
 export const buttonSizeMap = {
   small: css`
-    width: 54px;
+    width: 54.78px;
     height: 52px;
   `,
 

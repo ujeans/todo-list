@@ -27,4 +27,8 @@ export default TodoList;
 
 const listStyles = css`
   width: 50%;
+
+  @media (max-width: 744px) {
+    width: 100%;
+  }
 `;

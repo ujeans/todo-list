@@ -36,4 +36,8 @@ export default function Home() {
 
 const listStyles = css`
   gap: 24px;
+
+  @media (max-width: 744px) {
+    flex-direction: column;
+  }
 `;

@@ -19,7 +19,7 @@ function Container({ children, detail = false }: ContainerProps) {
 }
 
 const container = (detail: boolean) => css`
-  width: 1200px;
+  max-width: 1200px;
   height: calc(100vh - 60px);
   margin: 0 auto;
   padding-top: 61px;
@@ -28,6 +28,16 @@ const container = (detail: boolean) => css`
 
 const Wrapper = styled.div<{ detail: boolean }>`
   padding: ${props => (props.detail ? "0 102px" : "0px")};
+  box-sizing: border-box;
+
+  @media (max-width: 744px) {
+    padding: 0 24px;
+    background-color: aliceblue;
+  }
+
+  @media (max-width: 375px) {
+    padding: 0 16px;
+  }
 `;
 
 export default Container;

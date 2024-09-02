@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
+
 import { colors } from "../../styles/colorPalette";
 import { typographyMap } from "@/styles/typoGraphy";
 
 const Search = styled.input`
-  width: 1000px;
+  width: 100%;
   height: 56px;
   padding: 0 24px;
   background-color: ${colors.slate100};

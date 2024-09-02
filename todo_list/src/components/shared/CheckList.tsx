@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+
 import { colors } from "@/styles/colorPalette";
 
 import Flex from "./Flex";
@@ -49,12 +50,15 @@ function CheckList({
 
 const listRowContainerStyles = (isChecked: boolean, detail: boolean) => css`
   width: 100%;
-  /* width: ${detail ? "996px" : "588px"}; */
   height: ${detail ? "64px" : "50px"};
   margin-top: 16px;
   border-radius: ${detail ? "24px" : "27px"};
   background-color: ${isChecked ? colors.violet100 : colors.white};
   border: 2px solid ${colors.slate900};
+
+  &:last-child {
+    margin-bottom: 48px;
+  }
 `;
 
 const iconStyles = css`
