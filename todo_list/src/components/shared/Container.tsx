@@ -32,7 +32,6 @@ const Wrapper = styled.div<{ detail: boolean }>`
 
   @media (max-width: 744px) {
     padding: 0 24px;
-    background-color: aliceblue;
   }
 
   @media (max-width: 375px) {
