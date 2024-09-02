@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import Link from "next/link";
 
 import { colors } from "@/styles/colorPalette";
 
@@ -46,13 +47,25 @@ const wrapper = css`
 `;
 
 const ResponsiveImage = () => {
+  const handleClick = () => {
+    window.location.href = "/";
+  };
+
   return (
     <>
       <Flex css={largeImageStyle}>
-        <LargeImage />
+        <Link href="/" passHref legacyBehavior>
+          <a onClick={handleClick}>
+            <LargeImage />
+          </a>
+        </Link>
       </Flex>
       <Flex css={smallImageStyle}>
-        <SmallImage />
+        <Link href="/" passHref legacyBehavior>
+          <a onClick={handleClick}>
+            <SmallImage />
+          </a>
+        </Link>
       </Flex>
     </>
   );
@@ -60,6 +73,7 @@ const ResponsiveImage = () => {
 
 const largeImageStyle = css`
   display: block;
+  cursor: pointer;
 
   @media (max-width: 375px) {
     display: none;
@@ -68,6 +82,7 @@ const largeImageStyle = css`
 
 const smallImageStyle = css`
   display: none;
+  cursor: pointer;
 
   @media (max-width: 375px) {
     display: block;
