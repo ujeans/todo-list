@@ -32,4 +32,15 @@ export default function page() {
 
 const infoStyles = css`
   margin: 24px 0;
+
+  @media (max-width: 744px) {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  @media (max-width: 375px) {
+    margin: 16px 0;
+    flex-direction: column;
+    gap: 16px;
+  }
 `;

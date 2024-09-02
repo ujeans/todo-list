@@ -33,6 +33,10 @@ const MemoContainer = styled.div`
   height: 311px;
   border-radius: 24px;
   overflow: hidden;
+
+  @media (max-width: 744px) {
+    width: 100%;
+  }
 `;
 
 const MemoStyles = styled(MemoImage)`
@@ -52,7 +56,7 @@ const MemoTextArea = styled.textarea`
   position: absolute;
   top: 40px;
   left: 20px;
-  width: calc(100% - 40px);
+  width: calc(100% - 32px);
   height: calc(100% - 70px);
   background: transparent;
   border: none;

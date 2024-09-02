@@ -57,7 +57,7 @@ const listRowContainerStyles = (isChecked: boolean, detail: boolean) => css`
   border: 2px solid ${colors.slate900};
 
   &:last-child {
-    margin-bottom: 48px;
+    margin-bottom: ${detail ? "0" : "48px"};
   }
 `;
 

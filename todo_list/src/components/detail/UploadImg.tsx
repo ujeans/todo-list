@@ -28,6 +28,10 @@ const add = css`
   background-color: ${colors.gray50};
   border: 1px dashed ${colors.slate300};
   border-radius: 24px;
+
+  @media (max-width: 744px) {
+    width: 100%;
+  }
 `;
 
 const CircularButton = styled(CircularButtonComponent)`
