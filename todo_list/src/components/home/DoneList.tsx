@@ -4,21 +4,23 @@ import Flex from "../shared/Flex";
 import CheckList from "../shared/CheckList";
 
 import DoneImage from "@/assets/images/done.svg";
-
 interface DoneListProps {
-  isChecked: boolean;
-  onToggle: () => void;
+  todos: { id: number; name: string; isCompleted: boolean }[];
+  onToggleTodo: (id: number) => void;
 }
 
-function DoneList({ isChecked, onToggle }: DoneListProps) {
+function DoneList({ todos, onToggleTodo }: DoneListProps) {
   return (
     <Flex direction="column" css={listStyles}>
       <DoneImage />
-      <CheckList
-        text={"은행다녀오기"}
-        isChecked={isChecked}
-        onClick={onToggle}
-      />
+      {todos.map((todo, index) => (
+        <CheckList
+          key={index}
+          text={todo.name}
+          isCompleted={todo.isCompleted}
+          onClick={() => onToggleTodo(todo.id)}
+        />
+      ))}
     </Flex>
   );
 }

@@ -11,14 +11,14 @@ import Checkedbox from "@/assets/icons/checkedbox.svg";
 
 interface CheckListProps {
   text: string;
-  isChecked?: boolean;
+  isCompleted?: boolean;
   detail?: boolean;
   onClick?: () => void;
 }
 
 function CheckList({
   text,
-  isChecked = false,
+  isCompleted = false,
   detail = false,
   onClick,
 }: CheckListProps) {
@@ -31,15 +31,15 @@ function CheckList({
       as="li"
       align="center"
       justify={detail ? "center" : "flex-start"}
-      css={listRowContainerStyles(isChecked, detail)}
+      css={listRowContainerStyles(isCompleted, detail)}
     >
       <Flex css={iconStyles} onClick={handleToggle}>
-        {isChecked ? <Checkedbox /> : <Checkbox />}
+        {isCompleted ? <Checkedbox /> : <Checkbox />}
       </Flex>
       <StyledText
         typography={detail ? "t1" : "t5"}
         color={detail ? "slate900" : "slate800"}
-        isChecked={isChecked}
+        isCompleted={isCompleted}
         detail={detail}
       >
         {text}
@@ -48,12 +48,12 @@ function CheckList({
   );
 }
 
-const listRowContainerStyles = (isChecked: boolean, detail: boolean) => css`
+const listRowContainerStyles = (isCompleted: boolean, detail: boolean) => css`
   width: 100%;
   height: ${detail ? "64px" : "50px"};
   margin-top: 16px;
   border-radius: ${detail ? "24px" : "27px"};
-  background-color: ${isChecked ? colors.violet100 : colors.white};
+  background-color: ${isCompleted ? colors.violet100 : colors.white};
   border: 2px solid ${colors.slate900};
 
   &:last-child {
@@ -66,9 +66,9 @@ const iconStyles = css`
   cursor: pointer;
 `;
 
-const StyledText = styled(Text)<{ isChecked: boolean; detail: boolean }>`
+const StyledText = styled(Text)<{ isCompleted: boolean; detail: boolean }>`
   text-decoration: ${props =>
-    props.detail ? "none" : props.isChecked ? "line-through" : "none"};
+    props.detail ? "none" : props.isCompleted ? "line-through" : "none"};
   border-bottom: ${props =>
     props.detail ? `2px solid ${colors.slate900}` : "none"};
 `;

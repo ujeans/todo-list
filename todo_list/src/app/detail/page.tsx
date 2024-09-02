@@ -17,7 +17,7 @@ export default function page() {
   return (
     <>
       <Container detail={true}>
-        <ItemList isChecked={firstChecked} />
+        <ItemList isCompleted={firstChecked} />
 
         <Flex css={infoStyles}>
           <UploadImg />

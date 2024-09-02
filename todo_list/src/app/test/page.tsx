@@ -109,24 +109,24 @@ export default function page() {
 
       <CheckList
         text={"비타민 챙겨 먹기"}
-        isChecked={firstChecked}
+        isCompleted={firstChecked}
         onClick={() => setFirstChecked(!firstChecked)}
       />
       <CheckList
         text={"비타민 챙겨 먹기"}
-        isChecked={secondChecked}
+        isCompleted={secondChecked}
         onClick={() => setFirstChecked(!secondChecked)}
       />
 
       <CheckList
         text={"비타민 챙겨 먹기"}
-        isChecked={firstChecked}
+        isCompleted={firstChecked}
         detail={true}
         onClick={() => setFirstChecked(!firstChecked)}
       />
       <CheckList
         text={"비타민 챙겨 먹기"}
-        isChecked={secondChecked}
+        isCompleted={secondChecked}
         detail={true}
         onClick={() => setFirstChecked(!secondChecked)}
       />

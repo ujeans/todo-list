@@ -7,8 +7,30 @@ import Search from "../shared/Search";
 import PlusIcon from "@/assets/icons/plus.svg";
 import { useEffect, useState } from "react";
 
-function SearchBar() {
+interface SearchBarProps {
+  onAddTodo: (newTodo: string) => void;
+}
+
+function SearchBar({ onAddTodo }: SearchBarProps) {
+  const [inputValue, setInputValue] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleAddTodo = () => {
+    if (inputValue.trim()) {
+      onAddTodo(inputValue.trim());
+      setInputValue(""); // 입력 필드를 초기화
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleAddTodo();
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -25,11 +47,25 @@ function SearchBar() {
 
   return (
     <Flex justify="space-between" css={wrapper}>
-      <Search placeholder="할 일을 입력해주세요" />
+      <Search
+        placeholder="할 일을 입력해주세요"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+      />
       {isMobile ? (
-        <ButtonComponent color="default" size="small" icon={<PlusIcon />} />
+        <ButtonComponent
+          color="default"
+          size="small"
+          icon={<PlusIcon />}
+          onClick={handleAddTodo}
+        />
       ) : (
-        <ButtonComponent color="default" icon={<PlusIcon />}>
+        <ButtonComponent
+          color="default"
+          icon={<PlusIcon />}
+          onClick={handleAddTodo}
+        >
           추가하기
         </ButtonComponent>
       )}

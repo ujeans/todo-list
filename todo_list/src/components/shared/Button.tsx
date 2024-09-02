@@ -10,6 +10,7 @@ interface ButtonProps {
   color?: ButtonColor;
   size?: ButtonSize;
   icon?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export const Button = styled.button<ButtonProps>(
@@ -30,9 +31,10 @@ export default function ButtonComponent({
   size = "large",
   icon,
   children,
+  onClick,
 }: ButtonProps & { children?: React.ReactNode }) {
   return (
-    <Button color={color} size={size}>
+    <Button color={color} size={size} onClick={onClick}>
       {icon && <span>{icon}</span>}
       {size !== "small" && children}
     </Button>

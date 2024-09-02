@@ -6,19 +6,22 @@ import CheckList from "../shared/CheckList";
 import TodoImage from "@/assets/images/todo.svg";
 
 interface TodoListProps {
-  isChecked: boolean;
-  onToggle: () => void;
+  todos: { id: number; name: string; isCompleted: boolean }[];
+  onToggleTodo: (id: number) => void;
 }
 
-function TodoList({ isChecked, onToggle }: TodoListProps) {
+function TodoList({ todos, onToggleTodo }: TodoListProps) {
   return (
     <Flex direction="column" css={listStyles}>
       <TodoImage />
-      <CheckList
-        text={"비타민 챙겨 먹기"}
-        isChecked={isChecked}
-        onClick={onToggle}
-      />
+      {todos.map((todo, index) => (
+        <CheckList
+          key={index}
+          text={todo.name}
+          isCompleted={todo.isCompleted}
+          onClick={() => onToggleTodo(todo.id)}
+        />
+      ))}
     </Flex>
   );
 }
