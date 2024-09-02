@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+
 import Flex from "../shared/Flex";
 import CheckList from "../shared/CheckList";
 
@@ -10,7 +12,7 @@ interface TodoListProps {
 
 function TodoList({ isChecked, onToggle }: TodoListProps) {
   return (
-    <Flex direction="column">
+    <Flex direction="column" css={listStyles}>
       <TodoImage />
       <CheckList
         text={"비타민 챙겨 먹기"}
@@ -22,3 +24,7 @@ function TodoList({ isChecked, onToggle }: TodoListProps) {
 }
 
 export default TodoList;
+
+const listStyles = css`
+  width: 50%;
+`;

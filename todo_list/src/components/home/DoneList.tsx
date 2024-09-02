@@ -1,3 +1,5 @@
+import { css } from "@emotion/react";
+
 import Flex from "../shared/Flex";
 import CheckList from "../shared/CheckList";
 
@@ -10,7 +12,7 @@ interface DoneListProps {
 
 function DoneList({ isChecked, onToggle }: DoneListProps) {
   return (
-    <Flex direction="column">
+    <Flex direction="column" css={listStyles}>
       <DoneImage />
       <CheckList
         text={"은행다녀오기"}
@@ -22,3 +24,7 @@ function DoneList({ isChecked, onToggle }: DoneListProps) {
 }
 
 export default DoneList;
+
+const listStyles = css`
+  width: 50%;
+`;

@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 
-import Gnb from "@/components/shared/Gnb";
+import { css } from "@emotion/react";
+
 import Container from "@/components/shared/Container";
 import Flex from "@/components/shared/Flex";
 
@@ -18,7 +19,7 @@ export default function Home() {
       <Container detail={false}>
         <SearchBar />
 
-        <Flex justify="space-between">
+        <Flex justify="space-between" css={listStyles}>
           <TodoList
             isChecked={firstChecked}
             onToggle={() => setFirstChecked(!firstChecked)}
@@ -32,3 +33,7 @@ export default function Home() {
     </>
   );
 }
+
+const listStyles = css`
+  gap: 24px;
+`;
