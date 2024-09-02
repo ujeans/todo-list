@@ -1,9 +1,9 @@
 "use client";
 
-import { colors, Colors } from "@/styles/colorPalette";
-import { Typography, typographyMap } from "@/styles/typoGraphy";
 import styled from "@emotion/styled";
 import { CSSProperties } from "react";
+import { colors, Colors } from "@/styles/colorPalette";
+import { Typography, typographyMap } from "@/styles/typoGraphy";
 
 interface TextProps {
   typography?: Typography;

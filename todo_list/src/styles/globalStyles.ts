@@ -1,7 +1,7 @@
 "use client";
 
 import { css, Global } from "@emotion/react";
-import { colorPalette } from "./colorPalette";
+import { colorPalette, colors } from "./colorPalette";
 
 const globalStyles = css`
   ${colorPalette}
@@ -110,6 +110,7 @@ const globalStyles = css`
   }
   body {
     line-height: 1;
+    background-color: ${colors.gray50};
   }
   ol,
   ul {

@@ -15,6 +15,7 @@ export const colorPalette = css`
     --lime300: #bef264;
     --amber800: #92400e;
     --white: #fff;
+    --gray50: #f9fafb;
   }
 `;
 
@@ -32,6 +33,7 @@ export const colors = {
   lime300: "var(--lime300)",
   amber800: "var(--amber800)",
   white: "var(--white)",
+  gray50: "var(--gray50)",
 };
 
 export type Colors = keyof typeof colors;
