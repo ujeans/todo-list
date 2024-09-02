@@ -1,10 +1,9 @@
-import React from "react";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 import { colors } from "@/styles/colorPalette";
 
 import Flex from "./Flex";
-import styled from "@emotion/styled";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -24,7 +23,7 @@ const container = (detail: boolean) => css`
   height: calc(100vh - 60px);
   margin: 0 auto;
   padding-top: 61px;
-  background-color: ${detail ? colors.gray50 : colors.white};
+  background-color: ${detail ? colors.white : colors.gray50};
 `;
 
 const Wrapper = styled.div``;

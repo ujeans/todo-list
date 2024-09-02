@@ -15,8 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <Gnb />
-      <Container detail={true}>
+      <Container detail={false}>
         <SearchBar />
 
         <Flex justify="space-between">
