@@ -48,7 +48,8 @@ function CheckList({
 }
 
 const listRowContainerStyles = (isChecked: boolean, detail: boolean) => css`
-  width: ${detail ? "996px" : "588px"};
+  width: 100%;
+  /* width: ${detail ? "996px" : "588px"}; */
   height: ${detail ? "64px" : "50px"};
   margin-top: 16px;
   border-radius: ${detail ? "24px" : "27px"};

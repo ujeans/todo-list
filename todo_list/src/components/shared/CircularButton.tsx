@@ -4,6 +4,7 @@ import { CircularButtonStyle, circularButtonStyleMap } from "@/styles/button";
 interface CircularButtonProps {
   styleType?: CircularButtonStyle;
   children: React.ReactNode;
+  className?: string;
 }
 
 export const CircularButton = styled.button<CircularButtonProps>(
@@ -19,6 +20,11 @@ export const CircularButton = styled.button<CircularButtonProps>(
 export default function CircularButtonComponent({
   styleType = "edit",
   children,
+  className,
 }: CircularButtonProps) {
-  return <CircularButton styleType={styleType}>{children}</CircularButton>;
+  return (
+    <CircularButton styleType={styleType} className={className}>
+      {children}
+    </CircularButton>
+  );
 }

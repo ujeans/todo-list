@@ -14,6 +14,7 @@ export const colorPalette = css`
     --rose500: #f43f5e;
     --lime300: #bef264;
     --amber800: #92400e;
+    --amber200: #fde68a;
     --white: #fff;
     --gray50: #f9fafb;
   }
@@ -32,6 +33,7 @@ export const colors = {
   rose500: "var(--rose500)",
   lime300: "var(--lime300)",
   amber800: "var(--amber800)",
+  amber200: "var(--amber200)",
   white: "var(--white)",
   gray50: "var(--gray50)",
 };

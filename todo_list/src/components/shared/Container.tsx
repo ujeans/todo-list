@@ -13,7 +13,7 @@ interface ContainerProps {
 function Container({ children, detail = false }: ContainerProps) {
   return (
     <Flex direction="column" css={container(detail)}>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper detail={detail}>{children}</Wrapper>
     </Flex>
   );
 }
@@ -26,6 +26,8 @@ const container = (detail: boolean) => css`
   background-color: ${detail ? colors.white : colors.gray50};
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div<{ detail: boolean }>`
+  padding: ${props => (props.detail ? "0 102px" : "0px")};
+`;
 
 export default Container;
