@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import Container from "@/components/shared/Container";
 import Flex from "@/components/shared/Flex";
@@ -15,6 +15,7 @@ import Buttons from "@/components/detail/Buttons";
 import { useToggleTodo } from "@/hooks/useToggleTodo";
 
 export default function page() {
+  const router = useRouter();
   const { itemId } = useParams();
   const { todos, setTodos, handleToggleTodo } = useToggleTodo();
   const [updatedItemName, setUpdatedItemName] = useState<string | null>(null);
@@ -59,6 +60,8 @@ export default function page() {
       if (response.ok) {
         const updatedData = await response.json();
         setTodos([updatedData]); // 업데이트된 데이터로 상태 변경
+
+        router.push("/");
       }
     }
   };
