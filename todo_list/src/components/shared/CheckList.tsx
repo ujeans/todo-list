@@ -51,7 +51,9 @@ function CheckList({
   };
 
   const handleTextClick = () => {
-    setIsEditing(true);
+    if (detail) {
+      setIsEditing(true);
+    }
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
