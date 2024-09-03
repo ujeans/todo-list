@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useParams } from "next/navigation";
 
@@ -17,6 +17,7 @@ import { useToggleTodo } from "@/hooks/useToggleTodo";
 export default function page() {
   const { itemId } = useParams();
   const { todos, setTodos, handleToggleTodo } = useToggleTodo();
+  const [updatedItemName, setUpdatedItemName] = useState<string | null>(null);
 
   useEffect(() => {
     if (itemId) {
@@ -28,6 +29,7 @@ export default function page() {
         if (response.ok) {
           const data = await response.json();
           setTodos([data]);
+          setUpdatedItemName(data.name);
         }
       };
 
@@ -41,17 +43,41 @@ export default function page() {
     return <div>Loading...</div>;
   }
 
+  const handleSave = async () => {
+    if (itemId && updatedItemName !== null) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: updatedItemName }),
+        }
+      );
+
+      if (response.ok) {
+        const updatedData = await response.json();
+        setTodos([updatedData]); // 업데이트된 데이터로 상태 변경
+      }
+    }
+  };
+
   return (
     <>
       <Container detail={true}>
-        <ItemList itemData={itemData} onToggleTodo={handleToggleTodo} />
+        <ItemList
+          itemData={itemData}
+          onToggleTodo={handleToggleTodo}
+          onTextUpdate={newName => setUpdatedItemName(newName)}
+        />
 
         <Flex css={infoStyles}>
           <UploadImg imageUrl={itemData.imageUrl} />
           <Memo memo={itemData.memo} />
         </Flex>
 
-        <Buttons />
+        <Buttons onSave={handleSave} />
       </Container>
     </>
   );

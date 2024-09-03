@@ -6,10 +6,14 @@ import ButtonComponent from "../shared/Button";
 import CheckIcon from "@/assets/icons/check.svg";
 import XIcon from "@/assets/icons/X.svg";
 
-function Buttons() {
+interface ButtonsProps {
+  onSave: () => void;
+}
+
+function Buttons({ onSave }: ButtonsProps) {
   return (
     <Flex justify="flex-end" css={buttonContainerStyle}>
-      <ButtonComponent color="default" icon={<CheckIcon />}>
+      <ButtonComponent color="default" icon={<CheckIcon />} onClick={onSave}>
         수정 완료
       </ButtonComponent>
       <ButtonComponent color="delete" icon={<XIcon />}>

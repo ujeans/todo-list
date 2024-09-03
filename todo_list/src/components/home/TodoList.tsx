@@ -18,7 +18,7 @@ function TodoList({ todos, onToggleTodo }: TodoListProps) {
         <CheckList
           itemId={todo.id}
           key={index}
-          text={todo.name}
+          name={todo.name}
           isCompleted={todo.isCompleted}
           onClick={() => onToggleTodo(todo.id)}
         />

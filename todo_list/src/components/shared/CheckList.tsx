@@ -2,6 +2,7 @@
 
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { colors } from "@/styles/colorPalette";
@@ -14,20 +15,25 @@ import Checkedbox from "@/assets/icons/checkedbox.svg";
 
 interface CheckListProps {
   itemId: number;
-  text: string;
+  name: string;
   isCompleted?: boolean;
   detail?: boolean;
   onClick?: () => void;
+  onTextUpdate?: (newText: string) => void;
 }
 
 function CheckList({
   itemId,
-  text,
+  name,
   isCompleted = false,
   detail = false,
   onClick,
+  onTextUpdate,
 }: CheckListProps) {
   const router = useRouter();
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentInputText, setCurrentInputText] = useState(name);
 
   const navigateTo = (event: React.MouseEvent) => {
     if (
@@ -44,6 +50,19 @@ function CheckList({
     if (onClick) onClick();
   };
 
+  const handleTextClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentInputText(event.target.value);
+  };
+
+  const handleTextBlur = () => {
+    setIsEditing(false);
+    if (onTextUpdate) onTextUpdate(currentInputText); // 텍스트 업데이트
+  };
+
   return (
     <Flex
       as="li"
@@ -55,14 +74,24 @@ function CheckList({
       <Flex css={iconStyles} onClick={handleToggle}>
         {isCompleted ? <Checkedbox /> : <Checkbox />}
       </Flex>
-      <StyledText
-        typography={detail ? "t1" : "t5"}
-        color={detail ? "slate900" : "slate800"}
-        isCompleted={isCompleted}
-        detail={detail}
-      >
-        {text}
-      </StyledText>
+      {isEditing ? (
+        <StyledInput
+          value={currentInputText}
+          onChange={handleTextChange}
+          onBlur={handleTextBlur}
+          autoFocus
+        />
+      ) : (
+        <StyledText
+          typography={detail ? "t1" : "t5"}
+          color={detail ? "slate900" : "slate800"}
+          isCompleted={isCompleted}
+          detail={detail}
+          onClick={handleTextClick}
+        >
+          {name}
+        </StyledText>
+      )}
     </Flex>
   );
 }
@@ -92,6 +121,17 @@ const StyledText = styled(Text)<{ isCompleted: boolean; detail: boolean }>`
     props.detail ? "none" : props.isCompleted ? "line-through" : "none"};
   border-bottom: ${props =>
     props.detail ? `2px solid ${colors.slate900}` : "none"};
+`;
+
+const StyledInput = styled.input`
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-bottom: 2px solid ${colors.slate900};
 `;
 
 export default CheckList;
