@@ -12,15 +12,6 @@ import DoneList from "@/components/home/DoneList";
 
 import { useToggleTodo } from "@/hooks/useToggleTodo";
 
-interface Todo {
-  id: number;
-  tenantId: string;
-  name: string;
-  memo: string | null;
-  imageUrl: string | null;
-  isCompleted: boolean;
-}
-
 export default function Home() {
   const { todos, setTodos, handleToggleTodo } = useToggleTodo();
 
