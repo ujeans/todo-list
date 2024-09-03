@@ -29,11 +29,18 @@ function CheckList({
 }: CheckListProps) {
   const router = useRouter();
 
-  const navigateTo = () => {
+  const navigateTo = (event: React.MouseEvent) => {
+    if (
+      event.target instanceof SVGAElement ||
+      event.target instanceof HTMLDivElement
+    ) {
+      return;
+    }
     router.push(`/items/${itemId}`);
   };
 
-  const handleToggle = () => {
+  const handleToggle = (event: React.MouseEvent) => {
+    event.stopPropagation();
     if (onClick) onClick();
   };
 
