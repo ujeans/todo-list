@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useParams, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 import Container from "@/components/shared/Container";
 import Flex from "@/components/shared/Flex";
@@ -15,10 +17,15 @@ import Buttons from "@/components/detail/Buttons";
 import { useToggleTodo } from "@/hooks/useToggleTodo";
 
 export default function page() {
+  const [updatedItemName, setUpdatedItemName] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
+
   const router = useRouter();
   const { itemId } = useParams();
+
   const { todos, setTodos, handleToggleTodo } = useToggleTodo();
-  const [updatedItemName, setUpdatedItemName] = useState<string | null>(null);
+
+  const imageUrl = useSelector((state: RootState) => state.image.imageUrl);
 
   useEffect(() => {
     if (itemId) {
@@ -31,6 +38,7 @@ export default function page() {
           const data = await response.json();
           setTodos([data]);
           setUpdatedItemName(data.name);
+          setImage(data.imageUrl);
         }
       };
 
@@ -45,7 +53,7 @@ export default function page() {
   }
 
   const handleSave = async () => {
-    if (itemId && updatedItemName !== null) {
+    if (itemId && updatedItemName !== null && image !== null) {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
         {
@@ -53,7 +61,7 @@ export default function page() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: updatedItemName }),
+          body: JSON.stringify({ name: updatedItemName, imageUrl: imageUrl }),
         }
       );
 
@@ -76,7 +84,7 @@ export default function page() {
         />
 
         <Flex css={infoStyles}>
-          <UploadImg imageUrl={itemData.imageUrl} />
+          <UploadImg imageUrl={image} onImageUpload={url => setImage(url)} />
           <Memo memo={itemData.memo} />
         </Flex>
 
