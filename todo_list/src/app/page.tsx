@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { css } from "@emotion/react";
 
@@ -10,12 +10,12 @@ import SearchBar from "@/components/home/SearchBar";
 import TodoList from "@/components/home/TodoList";
 import DoneList from "@/components/home/DoneList";
 
-import { useToggleTodo } from "@/hooks/useToggleTodo";
+import { Todo } from "@/types/todo";
 
-import { createTodo, getTodos } from "@/utils/item";
+import { createTodo, getTodos, updateTodo } from "@/utils/item";
 
 export default function Home() {
-  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const loadTodos = async () => {
@@ -38,6 +38,22 @@ export default function Home() {
       setTodos(prevTodos => [...prevTodos, addedTodo]);
     } catch (error) {
       console.error("Failed to add todo", error);
+    }
+  };
+
+  const handleToggleTodo = async (id: number) => {
+    const todoToToggle = todos.find(todo => todo.id === id);
+    if (!todoToToggle) return;
+
+    try {
+      const updatedTodo = await updateTodo(id.toString(), {
+        isCompleted: !todoToToggle.isCompleted,
+      });
+      setTodos(prevTodos =>
+        prevTodos.map(todo => (todo.id === updatedTodo.id ? updatedTodo : todo))
+      );
+    } catch (error) {
+      console.error("Failed to toggle todo", error);
     }
   };
 

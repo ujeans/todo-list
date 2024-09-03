@@ -17,9 +17,9 @@ import Buttons from "@/components/detail/Buttons";
 import { Todo } from "@/types/todo";
 
 import { deleteTodo, getTodoById, updateTodo } from "@/utils/item";
-import { useToggleTodo } from "@/hooks/useToggleTodo";
 
 export default function page() {
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [updatedName, setUpdatedName] = useState<string | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const [currentMemo, setCurrentMemo] = useState<string>("");
@@ -27,8 +27,6 @@ export default function page() {
   const router = useRouter();
   const { itemId } = useParams();
   const id = Array.isArray(itemId) ? itemId[0] : itemId;
-
-  const { todos, setTodos } = useToggleTodo();
 
   const imageUrl = useSelector((state: RootState) => state.image.imageUrl);
 
