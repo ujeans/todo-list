@@ -19,7 +19,7 @@ interface CheckListProps {
   isCompleted?: boolean;
   detail?: boolean;
   onClick?: () => void;
-  onTextUpdate?: (newText: string) => void;
+  onNameUpdate?: (newText: string) => void;
 }
 
 function CheckList({
@@ -28,12 +28,12 @@ function CheckList({
   isCompleted = false,
   detail = false,
   onClick,
-  onTextUpdate,
+  onNameUpdate,
 }: CheckListProps) {
   const router = useRouter();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [currentInputText, setCurrentInputText] = useState(name);
+  const [currentItemName, setCurrentItemName] = useState(name);
 
   const navigateTo = (event: React.MouseEvent) => {
     if (
@@ -55,12 +55,12 @@ function CheckList({
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentInputText(event.target.value);
+    setCurrentItemName(event.target.value);
   };
 
   const handleTextBlur = () => {
     setIsEditing(false);
-    if (onTextUpdate) onTextUpdate(currentInputText); // 텍스트 업데이트
+    if (onNameUpdate) onNameUpdate(currentItemName); // 텍스트 업데이트
   };
 
   return (
@@ -76,7 +76,7 @@ function CheckList({
       </Flex>
       {isEditing ? (
         <StyledInput
-          value={currentInputText}
+          value={currentItemName}
           onChange={handleTextChange}
           onBlur={handleTextBlur}
           autoFocus

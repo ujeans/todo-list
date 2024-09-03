@@ -69,7 +69,7 @@ export default function page() {
         <ItemList
           itemData={itemData}
           onToggleTodo={handleToggleTodo}
-          onTextUpdate={newName => setUpdatedItemName(newName)}
+          onNameUpdate={newName => setUpdatedItemName(newName)}
         />
 
         <Flex css={infoStyles}>
