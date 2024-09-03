@@ -3,15 +3,23 @@ import Flex from "../shared/Flex";
 import CheckList from "../shared/CheckList";
 
 interface ItemListProps {
-  isCompleted: boolean;
+  itemData: {
+    id: number;
+    tenantId: string;
+    name: string;
+    memo: string | null;
+    imageUrl: string | null;
+    isCompleted: boolean;
+  };
 }
 
-function ItemList({ isCompleted }: ItemListProps) {
+function ItemList({ itemData }: ItemListProps) {
   return (
     <Flex>
       <CheckList
-        text={"비타민 챙겨 먹기"}
-        isCompleted={isCompleted}
+        itemId={itemData.id}
+        text={itemData.name}
+        isCompleted={itemData.isCompleted}
         detail={true}
       />
     </Flex>

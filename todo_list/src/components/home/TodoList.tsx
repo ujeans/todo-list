@@ -16,6 +16,7 @@ function TodoList({ todos, onToggleTodo }: TodoListProps) {
       <TodoImage />
       {todos.map((todo, index) => (
         <CheckList
+          itemId={todo.id}
           key={index}
           text={todo.name}
           isCompleted={todo.isCompleted}

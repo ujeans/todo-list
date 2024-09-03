@@ -1,5 +1,8 @@
+"use client";
+
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useRouter } from "next/navigation";
 
 import { colors } from "@/styles/colorPalette";
 
@@ -10,6 +13,7 @@ import Checkbox from "@/assets/icons/checkbox.svg";
 import Checkedbox from "@/assets/icons/checkedbox.svg";
 
 interface CheckListProps {
+  itemId: number;
   text: string;
   isCompleted?: boolean;
   detail?: boolean;
@@ -17,11 +21,18 @@ interface CheckListProps {
 }
 
 function CheckList({
+  itemId,
   text,
   isCompleted = false,
   detail = false,
   onClick,
 }: CheckListProps) {
+  const router = useRouter();
+
+  const navigateTo = () => {
+    router.push(`/items/${itemId}`);
+  };
+
   const handleToggle = () => {
     if (onClick) onClick();
   };
@@ -32,6 +43,7 @@ function CheckList({
       align="center"
       justify={detail ? "center" : "flex-start"}
       css={listRowContainerStyles(isCompleted, detail)}
+      onClick={navigateTo}
     >
       <Flex css={iconStyles} onClick={handleToggle}>
         {isCompleted ? <Checkedbox /> : <Checkbox />}
@@ -55,6 +67,8 @@ const listRowContainerStyles = (isCompleted: boolean, detail: boolean) => css`
   border-radius: ${detail ? "24px" : "27px"};
   background-color: ${isCompleted ? colors.violet100 : colors.white};
   border: 2px solid ${colors.slate900};
+
+  cursor: pointer;
 
   &:last-child {
     margin-bottom: ${detail ? "0" : "48px"};

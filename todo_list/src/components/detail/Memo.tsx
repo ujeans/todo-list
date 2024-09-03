@@ -7,8 +7,12 @@ import Text from "../shared/Text";
 
 import MemoImage from "@/assets/images/memo.svg";
 
-function Memo() {
-  const [text, setText] = useState("");
+interface MemoProps {
+  memo?: string | null;
+}
+
+function Memo({ memo = "" }: MemoProps) {
+  const [text, setText] = useState(memo || "");
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);

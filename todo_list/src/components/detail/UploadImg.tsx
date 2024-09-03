@@ -9,10 +9,14 @@ import CircularButtonComponent from "../shared/CircularButton";
 import Img from "@/assets/images/img.svg";
 import AddIcon from "@/assets/icons/add.svg";
 
-function UploadImg() {
+interface uploadImgProps {
+  imageUrl?: string | null;
+}
+
+function UploadImg({ imageUrl }: uploadImgProps) {
   return (
     <Flex align="center" justify="center" css={add}>
-      <Img />
+      {imageUrl ? <StyledImage src={imageUrl} alt="Uploaded Image" /> : <Img />}
       <CircularButton styleType="plus">
         <AddIcon />
       </CircularButton>
@@ -38,6 +42,13 @@ const CircularButton = styled(CircularButtonComponent)`
   position: absolute;
   bottom: 16px;
   right: 16px;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
 `;
 
 export default UploadImg;
