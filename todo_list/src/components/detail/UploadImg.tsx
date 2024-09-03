@@ -20,6 +20,7 @@ interface uploadImgProps {
 function UploadImg({ imageUrl, onImageUpload }: uploadImgProps) {
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [previewImage, setPreviewImage] = useState<string | null>(
     imageUrl || null
   );
@@ -35,6 +36,22 @@ function UploadImg({ imageUrl, onImageUpload }: uploadImgProps) {
   ) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
+
+      // 파일 이름 검증 (영어만 허용)
+      const fileName = file.name;
+      const isValidFileName = /^[a-zA-Z0-9._-]+$/.test(fileName);
+      if (!isValidFileName) {
+        alert("파일 이름은 영어로만 이루어져야 합니다");
+        return;
+      }
+
+      // 파일 크기 검증 (5MB 이하만 허용)
+      const fileSize = file.size;
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (fileSize > maxSize) {
+        alert("파일 크기는 5MB 이하여야 합니다.");
+        return;
+      }
 
       const formData = new FormData();
       formData.append("image", file);
