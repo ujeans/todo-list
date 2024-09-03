@@ -16,6 +16,7 @@ import Buttons from "@/components/detail/Buttons";
 
 import { Todo } from "@/types/todo";
 
+import { deleteTodo, getTodoById, updateTodo } from "@/utils/item";
 import { useToggleTodo } from "@/hooks/useToggleTodo";
 
 export default function page() {
@@ -25,8 +26,9 @@ export default function page() {
 
   const router = useRouter();
   const { itemId } = useParams();
+  const id = Array.isArray(itemId) ? itemId[0] : itemId;
 
-  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
+  const { todos, setTodos } = useToggleTodo();
 
   const imageUrl = useSelector((state: RootState) => state.image.imageUrl);
 
@@ -34,62 +36,42 @@ export default function page() {
     if (!itemId) return;
 
     const fetchItem = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
+      try {
+        const data = await getTodoById(id);
         setTodos([data]);
         setUpdatedName(data.name);
         setImage(data.imageUrl); // imageUrl을 상태로 설정
         setCurrentMemo(data.memo || ""); // memo가 없으면 빈 문자열로 설정
+      } catch (error) {
+        console.error("Failed to fetch todo", error);
       }
     };
 
     fetchItem();
   }, [itemId, setTodos]);
 
-  const itemData = todos[0];
-
-  if (!itemData) {
-    return <div>Loading...</div>;
-  }
   const handleEdit = async () => {
     if (itemId && updatedName !== null) {
-      const requestBody: Partial<Todo> = {
+      const updates: Partial<Todo> = {
         name: updatedName,
       };
 
       // imageUrl이 존재하는 경우에만 추가
       if (imageUrl) {
-        requestBody.imageUrl = imageUrl;
+        updates.imageUrl = imageUrl;
       }
 
       // memo가 존재하는 경우에만 추가
       if (currentMemo) {
-        requestBody.memo = currentMemo;
+        updates.memo = currentMemo;
       }
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      if (response.ok) {
-        const updatedData = await response.json();
-        setTodos([updatedData]); // 업데이트된 데이터로 상태 변경
-
+      try {
+        const updatedData = await updateTodo(id, updates);
+        setTodos([updatedData]);
         router.push("/");
-      } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData); // 오류 메시지 출력
+      } catch (error) {
+        console.error("Error:", error);
       }
     }
   };
@@ -97,30 +79,25 @@ export default function page() {
   const handleDelete = async () => {
     if (!itemId) return;
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.ok) {
+    try {
+      await deleteTodo(id);
       router.push("/");
-    } else {
-      const errorData = await response.json();
-      console.log("Error:", errorData);
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
+
+  const itemData = todos[0];
+
+  if (!itemData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <Container detail={true}>
         <ItemList
           itemData={itemData}
-          onToggleTodo={handleToggleTodo}
           onNameUpdate={newName => setUpdatedName(newName)}
         />
 

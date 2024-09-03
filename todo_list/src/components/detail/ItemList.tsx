@@ -6,11 +6,10 @@ import { Todo } from "@/types/todo";
 
 interface ItemListProps {
   itemData: Todo;
-  onToggleTodo: (id: number) => void;
   onNameUpdate: (newName: string) => void;
 }
 
-function ItemList({ itemData, onToggleTodo, onNameUpdate }: ItemListProps) {
+function ItemList({ itemData, onNameUpdate }: ItemListProps) {
   return (
     <Flex>
       <CheckList
@@ -18,7 +17,6 @@ function ItemList({ itemData, onToggleTodo, onNameUpdate }: ItemListProps) {
         name={itemData.name}
         isCompleted={itemData.isCompleted}
         detail={true}
-        onClick={() => onToggleTodo(itemData.id)}
         onNameUpdate={onNameUpdate}
       />
     </Flex>

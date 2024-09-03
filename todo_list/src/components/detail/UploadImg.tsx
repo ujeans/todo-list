@@ -10,7 +10,10 @@ import CircularButtonComponent from "../shared/CircularButton";
 
 import Img from "@/assets/images/img.svg";
 import AddIcon from "@/assets/icons/add.svg";
+
 import { setImageUrl } from "@/store/imageSlice";
+
+import { uploadImage } from "@/utils/image";
 
 interface uploadImgProps {
   imageUrl?: string | null;
@@ -53,23 +56,14 @@ function UploadImg({ imageUrl, onImageUpload }: uploadImgProps) {
         return;
       }
 
-      const formData = new FormData();
-      formData.append("image", file);
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/ujin/images/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
+      try {
+        const data = await uploadImage(file); // uploadImage 함수 사용
         setPreviewImage(data.url);
         onImageUpload(data.url);
 
         dispatch(setImageUrl(data.url));
+      } catch (error) {
+        console.error("Image upload failed:", error);
       }
     }
   };
