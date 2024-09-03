@@ -11,9 +11,10 @@ interface ItemListProps {
     imageUrl: string | null;
     isCompleted: boolean;
   };
+  onToggleTodo: (id: number) => void;
 }
 
-function ItemList({ itemData }: ItemListProps) {
+function ItemList({ itemData, onToggleTodo }: ItemListProps) {
   return (
     <Flex>
       <CheckList
@@ -21,6 +22,7 @@ function ItemList({ itemData }: ItemListProps) {
         text={itemData.name}
         isCompleted={itemData.isCompleted}
         detail={true}
+        onClick={() => onToggleTodo(itemData.id)}
       />
     </Flex>
   );

@@ -12,6 +12,8 @@ import UploadImg from "@/components/detail/UploadImg";
 import Memo from "@/components/detail/Memo";
 import Buttons from "@/components/detail/Buttons";
 
+import { useToggleTodo } from "@/hooks/useToggleTodo";
+
 interface Item {
   id: number;
   tenantId: string;
@@ -24,6 +26,7 @@ interface Item {
 export default function page() {
   const { itemId } = useParams();
   const [itemData, setItemData] = useState<Item | null>(null);
+  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
 
   useEffect(() => {
     if (itemId) {
@@ -49,7 +52,7 @@ export default function page() {
   return (
     <>
       <Container detail={true}>
-        <ItemList itemData={itemData} />
+        <ItemList itemData={itemData} onToggleTodo={handleToggleTodo} />
 
         <Flex css={infoStyles}>
           <UploadImg imageUrl={itemData.imageUrl} />

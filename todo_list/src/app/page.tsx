@@ -10,6 +10,8 @@ import SearchBar from "@/components/home/SearchBar";
 import TodoList from "@/components/home/TodoList";
 import DoneList from "@/components/home/DoneList";
 
+import { useToggleTodo } from "@/hooks/useToggleTodo";
+
 interface Todo {
   id: number;
   tenantId: string;
@@ -20,7 +22,7 @@ interface Todo {
 }
 
 export default function Home() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
 
   // todos 데이터를 서버에서 불러오는 함수
   const fetchTodos = async () => {
@@ -61,36 +63,6 @@ export default function Home() {
     }
   };
 
-  const toggleTodo = async (id: number) => {
-    const todoToToggle = todos.find(todo => todo.id === id);
-
-    if (!todoToToggle) return;
-
-    const updatedIsCompleted = !todoToToggle.isCompleted;
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ isCompleted: updatedIsCompleted }),
-      }
-    );
-
-    if (response.ok) {
-      // 상태 업데이트
-      setTodos(prevTodos =>
-        prevTodos.map(todo =>
-          todo.id === id ? { ...todo, isCompleted: updatedIsCompleted } : todo
-        )
-      );
-    } else {
-      console.error("Failed to update todo");
-    }
-  };
-
   return (
     <>
       <Container detail={false}>
@@ -99,11 +71,11 @@ export default function Home() {
         <Flex justify="space-between" css={listStyles}>
           <TodoList
             todos={todos.filter(todo => !todo.isCompleted)}
-            onToggleTodo={toggleTodo}
+            onToggleTodo={handleToggleTodo}
           />
           <DoneList
             todos={todos.filter(todo => todo.isCompleted)}
-            onToggleTodo={toggleTodo}
+            onToggleTodo={handleToggleTodo}
           />
         </Flex>
       </Container>
