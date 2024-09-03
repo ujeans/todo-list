@@ -2,15 +2,10 @@ import React from "react";
 import Flex from "../shared/Flex";
 import CheckList from "../shared/CheckList";
 
+import { Todo } from "@/types/todo";
+
 interface ItemListProps {
-  itemData: {
-    id: number;
-    tenantId: string;
-    name: string;
-    memo: string | null;
-    imageUrl: string | null;
-    isCompleted: boolean;
-  };
+  itemData: Todo;
   onToggleTodo: (id: number) => void;
 }
 

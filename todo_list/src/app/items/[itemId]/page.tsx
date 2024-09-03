@@ -12,21 +12,15 @@ import UploadImg from "@/components/detail/UploadImg";
 import Memo from "@/components/detail/Memo";
 import Buttons from "@/components/detail/Buttons";
 
-import { useToggleTodo } from "@/hooks/useToggleTodo";
+import { Todo } from "@/types/todo";
 
-interface Item {
-  id: number;
-  tenantId: string;
-  name: string;
-  memo: string | null;
-  imageUrl: string | null;
-  isCompleted: boolean;
-}
+import { useToggleTodo } from "@/hooks/useToggleTodo";
+import { toggleTodo } from "@/utils/todo";
 
 export default function page() {
   const { itemId } = useParams();
-  const [itemData, setItemData] = useState<Item | null>(null);
-  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
+  const [itemData, setItemData] = useState<Todo | null>(null);
+  // const { todos, setTodos, handleToggleTodo } = useToggleTodo();
 
   useEffect(() => {
     if (itemId) {
@@ -44,6 +38,16 @@ export default function page() {
       fetchItem();
     }
   }, [itemId]);
+
+  const handleToggleTodo = async (id: number) => {
+    if (!itemData) return;
+
+    toggleTodo(id, itemData.isCompleted, updatedTodo => {
+      setItemData(prevData =>
+        prevData ? { ...prevData, isCompleted: updatedTodo.isCompleted } : null
+      );
+    });
+  };
 
   if (!itemData) {
     return <div>Loading...</div>;
