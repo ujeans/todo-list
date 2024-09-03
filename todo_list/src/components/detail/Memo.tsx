@@ -8,23 +8,28 @@ import Text from "../shared/Text";
 import MemoImage from "@/assets/images/memo.svg";
 
 interface MemoProps {
-  memo?: string | null;
+  currentMemo?: string | null;
+  onMemoChange: (newMemo: string) => void;
 }
 
-function Memo({ memo = "" }: MemoProps) {
-  const [text, setText] = useState(memo || "");
+function Memo({ currentMemo = "", onMemoChange }: MemoProps) {
+  const [editedMemo, setEditedMemo] = useState(currentMemo || "");
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+    const newMemo = event.target.value;
+    setEditedMemo(newMemo);
+    onMemoChange(newMemo);
   };
 
   return (
     <MemoContainer>
       <MemoStyles />
+
       <MemoText typography="t3" color="amber800">
         Memo
       </MemoText>
-      <MemoTextArea value={text} onChange={handleChange} />
+
+      <MemoTextArea value={editedMemo} onChange={handleChange} />
     </MemoContainer>
   );
 }

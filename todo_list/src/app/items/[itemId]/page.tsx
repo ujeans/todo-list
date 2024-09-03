@@ -14,11 +14,14 @@ import UploadImg from "@/components/detail/UploadImg";
 import Memo from "@/components/detail/Memo";
 import Buttons from "@/components/detail/Buttons";
 
+import { Todo } from "@/types/todo";
+
 import { useToggleTodo } from "@/hooks/useToggleTodo";
 
 export default function page() {
-  const [updatedItemName, setUpdatedItemName] = useState<string | null>(null);
+  const [updatedName, setUpdatedName] = useState<string | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [currentMemo, setCurrentMemo] = useState<string>("");
 
   const router = useRouter();
   const { itemId } = useParams();
@@ -28,22 +31,23 @@ export default function page() {
   const imageUrl = useSelector((state: RootState) => state.image.imageUrl);
 
   useEffect(() => {
-    if (itemId) {
-      const fetchItem = async () => {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`
-        );
+    if (!itemId) return;
 
-        if (response.ok) {
-          const data = await response.json();
-          setTodos([data]);
-          setUpdatedItemName(data.name);
-          setImage(data.imageUrl);
-        }
-      };
+    const fetchItem = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`
+      );
 
-      fetchItem();
-    }
+      if (response.ok) {
+        const data = await response.json();
+        setTodos([data]);
+        setUpdatedName(data.name);
+        setImage(data.imageUrl); // imageUrl을 상태로 설정
+        setCurrentMemo(data.memo || ""); // memo가 없으면 빈 문자열로 설정
+      }
+    };
+
+    fetchItem();
   }, [itemId, setTodos]);
 
   const itemData = todos[0];
@@ -51,9 +55,22 @@ export default function page() {
   if (!itemData) {
     return <div>Loading...</div>;
   }
-
   const handleSave = async () => {
-    if (itemId && updatedItemName !== null && image !== null) {
+    if (itemId && updatedName !== null) {
+      const requestBody: Partial<Todo> = {
+        name: updatedName,
+      };
+
+      // imageUrl이 존재하는 경우에만 추가
+      if (imageUrl) {
+        requestBody.imageUrl = imageUrl;
+      }
+
+      // memo가 존재하는 경우에만 추가
+      if (currentMemo) {
+        requestBody.memo = currentMemo;
+      }
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
         {
@@ -61,7 +78,7 @@ export default function page() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: updatedItemName, imageUrl: imageUrl }),
+          body: JSON.stringify(requestBody),
         }
       );
 
@@ -70,6 +87,9 @@ export default function page() {
         setTodos([updatedData]); // 업데이트된 데이터로 상태 변경
 
         router.push("/");
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData); // 오류 메시지 출력
       }
     }
   };
@@ -80,12 +100,15 @@ export default function page() {
         <ItemList
           itemData={itemData}
           onToggleTodo={handleToggleTodo}
-          onNameUpdate={newName => setUpdatedItemName(newName)}
+          onNameUpdate={newName => setUpdatedName(newName)}
         />
 
         <Flex css={infoStyles}>
           <UploadImg imageUrl={image} onImageUpload={url => setImage(url)} />
-          <Memo memo={itemData.memo} />
+          <Memo
+            currentMemo={currentMemo}
+            onMemoChange={newMemo => setCurrentMemo(newMemo)}
+          />
         </Flex>
 
         <Buttons onSave={handleSave} />
