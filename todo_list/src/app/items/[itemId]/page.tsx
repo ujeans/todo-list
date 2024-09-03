@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { css } from "@emotion/react";
 import { useParams } from "next/navigation";
 
@@ -12,15 +12,11 @@ import UploadImg from "@/components/detail/UploadImg";
 import Memo from "@/components/detail/Memo";
 import Buttons from "@/components/detail/Buttons";
 
-import { Todo } from "@/types/todo";
-
 import { useToggleTodo } from "@/hooks/useToggleTodo";
-import { toggleTodo } from "@/utils/todo";
 
 export default function page() {
   const { itemId } = useParams();
-  const [itemData, setItemData] = useState<Todo | null>(null);
-  // const { todos, setTodos, handleToggleTodo } = useToggleTodo();
+  const { todos, setTodos, handleToggleTodo } = useToggleTodo();
 
   useEffect(() => {
     if (itemId) {
@@ -31,23 +27,15 @@ export default function page() {
 
         if (response.ok) {
           const data = await response.json();
-          setItemData(data);
+          setTodos([data]);
         }
       };
 
       fetchItem();
     }
-  }, [itemId]);
+  }, [itemId, setTodos]);
 
-  const handleToggleTodo = async (id: number) => {
-    if (!itemData) return;
-
-    toggleTodo(id, itemData.isCompleted, updatedTodo => {
-      setItemData(prevData =>
-        prevData ? { ...prevData, isCompleted: updatedTodo.isCompleted } : null
-      );
-    });
-  };
+  const itemData = todos[0];
 
   if (!itemData) {
     return <div>Loading...</div>;
