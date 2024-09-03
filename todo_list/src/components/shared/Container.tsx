@@ -29,7 +29,7 @@ const container = (detail: boolean) => css`
 const Wrapper = styled.div<{ detail: boolean }>`
   padding: ${props => (props.detail ? "0 102px" : "0px")};
   box-sizing: border-box;
-  background-color: ${colors.white};
+  background-color: ${props => (props.detail ? colors.white : colors.gray50)};
 
   @media (max-width: 744px) {
     padding: 0 24px;
