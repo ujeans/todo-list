@@ -7,16 +7,17 @@ import CheckIcon from "@/assets/icons/check.svg";
 import XIcon from "@/assets/icons/X.svg";
 
 interface ButtonsProps {
-  onSave: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-function Buttons({ onSave }: ButtonsProps) {
+function Buttons({ onEdit, onDelete }: ButtonsProps) {
   return (
     <Flex justify="flex-end" css={buttonContainerStyle}>
-      <ButtonComponent color="default" icon={<CheckIcon />} onClick={onSave}>
+      <ButtonComponent color="default" icon={<CheckIcon />} onClick={onEdit}>
         수정 완료
       </ButtonComponent>
-      <ButtonComponent color="delete" icon={<XIcon />}>
+      <ButtonComponent color="delete" icon={<XIcon />} onClick={onDelete}>
         삭제하기
       </ButtonComponent>
     </Flex>

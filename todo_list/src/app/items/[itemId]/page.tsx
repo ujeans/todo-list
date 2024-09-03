@@ -55,7 +55,7 @@ export default function page() {
   if (!itemData) {
     return <div>Loading...</div>;
   }
-  const handleSave = async () => {
+  const handleEdit = async () => {
     if (itemId && updatedName !== null) {
       const requestBody: Partial<Todo> = {
         name: updatedName,
@@ -94,6 +94,27 @@ export default function page() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!itemId) return;
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/ujin/items/${itemId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      router.push("/");
+    } else {
+      const errorData = await response.json();
+      console.log("Error:", errorData);
+    }
+  };
+
   return (
     <>
       <Container detail={true}>
@@ -111,7 +132,7 @@ export default function page() {
           />
         </Flex>
 
-        <Buttons onSave={handleSave} />
+        <Buttons onEdit={handleEdit} onDelete={handleDelete} />
       </Container>
     </>
   );
