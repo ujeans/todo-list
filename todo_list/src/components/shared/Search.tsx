@@ -4,7 +4,7 @@ import { colors } from "../../styles/colorPalette";
 import { typographyMap } from "@/styles/typoGraphy";
 
 const Search = styled.input`
-  width: 100%;
+  width: 1000px;
   height: 56px;
   padding: 0 24px;
   background-color: ${colors.slate100};
@@ -17,6 +17,14 @@ const Search = styled.input`
 
   ::placeholder {
     color: ${colors.slate500};
+  }
+
+  @media (max-width: 744px) {
+    width: 518px;
+  }
+
+  @media (max-width: 375px) {
+    width: 279px;
   }
 `;
 

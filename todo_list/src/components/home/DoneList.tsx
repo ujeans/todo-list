@@ -42,9 +42,9 @@ function DoneList({ todos, onToggleTodo }: DoneListProps) {
 export default DoneList;
 
 const listStyles = css`
-  width: 50%;
+  /* width: 50%; */
 
   @media (max-width: 744px) {
-    width: 100%;
+    /* width: 100%; */
   }
 `;

@@ -1,9 +1,9 @@
 "use client";
 
+import styled from "@emotion/styled";
 import { useState } from "react";
 
 import Text from "@/components/shared/Text";
-
 import ButtonComponent from "@/components/shared/Button";
 import CircularButtonComponent from "@/components/shared/CircularButton";
 import Search from "@/components/shared/Search";
@@ -20,7 +20,11 @@ export default function page() {
   const [secondChecked, setSecondChecked] = useState(true);
 
   return (
-    <div>
+    <div
+      style={{
+        marginTop: 100,
+      }}
+    >
       <Text typography="t1" display="block" color="amber800">
         NanumSquare
       </Text>
@@ -31,15 +35,7 @@ export default function page() {
       <Text typography="t4">NanumSquare</Text>
       <Text typography="t5">NanumSquare</Text>
 
-      <div
-        style={{
-          height: 10,
-          width: "100%",
-          background: "#efefef",
-          marginTop: 20,
-          marginBottom: 20,
-        }}
-      ></div>
+      <Line />
 
       <ButtonComponent color="default" icon={<PlusIcon />}>
         추가하기
@@ -68,15 +64,7 @@ export default function page() {
         icon={<PlusIcon />}
       ></ButtonComponent>
 
-      <div
-        style={{
-          height: 10,
-          width: "100%",
-          background: "#efefef",
-          marginTop: 20,
-          marginBottom: 20,
-        }}
-      ></div>
+      <Line />
 
       <CircularButtonComponent styleType="plus">
         <AddIcon />
@@ -85,47 +73,35 @@ export default function page() {
         <EditIcon />
       </CircularButtonComponent>
 
-      <div
-        style={{
-          height: 10,
-          width: "100%",
-          background: "#efefef",
-          marginTop: 20,
-          marginBottom: 20,
-        }}
-      ></div>
+      <Line />
 
       <Search placeholder="할 일을 입력해주세요" />
 
-      <div
-        style={{
-          height: 10,
-          width: "100%",
-          background: "#efefef",
-          marginTop: 20,
-          marginBottom: 20,
-        }}
-      ></div>
+      <Line />
 
       <CheckList
-        text={"비타민 챙겨 먹기"}
+        itemId={1}
+        name={"비타민 챙겨 먹기"}
         isCompleted={firstChecked}
         onClick={() => setFirstChecked(!firstChecked)}
       />
       <CheckList
-        text={"비타민 챙겨 먹기"}
+        itemId={2}
+        name={"비타민 챙겨 먹기"}
         isCompleted={secondChecked}
         onClick={() => setFirstChecked(!secondChecked)}
       />
 
       <CheckList
-        text={"비타민 챙겨 먹기"}
+        itemId={3}
+        name={"비타민 챙겨 먹기"}
         isCompleted={firstChecked}
         detail={true}
         onClick={() => setFirstChecked(!firstChecked)}
       />
       <CheckList
-        text={"비타민 챙겨 먹기"}
+        itemId={4}
+        name={"비타민 챙겨 먹기"}
         isCompleted={secondChecked}
         detail={true}
         onClick={() => setFirstChecked(!secondChecked)}
@@ -133,3 +109,10 @@ export default function page() {
     </div>
   );
 }
+
+const Line = styled.div`
+  height: 10px;
+  width: 100%;
+  background: #ac9696;
+  margin: 20px 0;
+`;
