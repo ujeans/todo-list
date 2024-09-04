@@ -3,6 +3,7 @@
 import { css, Global } from "@emotion/react";
 import { colorPalette, colors } from "./colorPalette";
 
+// reset.css
 const globalStyles = css`
   ${colorPalette}
 
