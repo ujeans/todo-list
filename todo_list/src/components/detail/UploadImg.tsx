@@ -10,6 +10,7 @@ import CircularButtonComponent from "../shared/CircularButton";
 
 import Img from "@/assets/images/img.svg";
 import AddIcon from "@/assets/icons/add.svg";
+import EditIcon from "@/assets/icons/edit.svg";
 
 import { setImageUrl } from "@/store/imageSlice";
 
@@ -94,8 +95,11 @@ function UploadImg({ imageUrl, onImageUpload }: uploadImgProps) {
         onChange={handleImageChange}
       />
       {/* 파일 업로드 팝업창이 띄워주는 버튼 */}
-      <CircularButton styleType="plus" onClick={onClickFile}>
-        <AddIcon />
+      <CircularButton
+        styleType={previewImage ? "edit" : "plus"}
+        onClick={onClickFile}
+      >
+        {previewImage ? <EditIcon /> : <AddIcon />}
       </CircularButton>
     </Flex>
   );
