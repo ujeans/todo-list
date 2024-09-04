@@ -9,12 +9,20 @@ import XIcon from "@/assets/icons/X.svg";
 interface ButtonsProps {
   onEdit: () => void;
   onDelete: () => void;
+  image: string | null;
+  memo: string;
 }
 
-function Buttons({ onEdit, onDelete }: ButtonsProps) {
+function Buttons({ onEdit, onDelete, image, memo }: ButtonsProps) {
+  const isEditable = !!image || !!memo;
+
   return (
     <Flex justify="flex-end" css={buttonContainerStyle}>
-      <ButtonComponent color="default" icon={<CheckIcon />} onClick={onEdit}>
+      <ButtonComponent
+        color={isEditable ? "edit" : "default"}
+        icon={<CheckIcon />}
+        onClick={onEdit}
+      >
         수정 완료
       </ButtonComponent>
       <ButtonComponent color="delete" icon={<XIcon />} onClick={onDelete}>
