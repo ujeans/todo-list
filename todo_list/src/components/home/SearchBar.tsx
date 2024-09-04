@@ -9,9 +9,10 @@ import { useEffect, useState } from "react";
 
 interface SearchBarProps {
   onAddTodo: (newTodo: string) => void;
+  isEmpty: boolean;
 }
 
-function SearchBar({ onAddTodo }: SearchBarProps) {
+function SearchBar({ onAddTodo, isEmpty }: SearchBarProps) {
   // inputValue는 입력 필드의 현재 값을 관리하는 상태
   const [inputValue, setInputValue] = useState("");
   // isMobile은 현재 화면이 모바일인지 여부를 관리하는 상태
@@ -64,13 +65,17 @@ function SearchBar({ onAddTodo }: SearchBarProps) {
       {/* 모바일 화면에서는 아이콘 버튼, 그 외에는 텍스트 버튼 */}
       {isMobile ? (
         <Button
-          color="default"
+          color={isEmpty ? "add" : "default"}
           size="small"
           icon={<PlusIcon />}
           onClick={handleAddTodo}
         />
       ) : (
-        <Button color="default" icon={<PlusIcon />} onClick={handleAddTodo}>
+        <Button
+          color={isEmpty ? "add" : "default"}
+          icon={<PlusIcon />}
+          onClick={handleAddTodo}
+        >
           추가하기
         </Button>
       )}
