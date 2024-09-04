@@ -55,8 +55,8 @@ export default function page() {
       };
 
       // imageUrl이 존재하는 경우에만 추가
-      if (imageUrl) {
-        updates.imageUrl = imageUrl;
+      if (image && image !== todos[0]?.imageUrl) {
+        updates.imageUrl = image;
       }
 
       // memo가 존재하는 경우에만 추가
