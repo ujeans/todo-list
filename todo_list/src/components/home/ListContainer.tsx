@@ -22,10 +22,11 @@ function ListContainer({
   emptySmallImage,
   emptyMessage,
 }: TodoListBaseProps) {
+  const isEmpty = todos.length === 0;
   return (
-    <Flex direction="column" css={listStyles}>
+    <Flex direction="column" css={listStyles(isEmpty)}>
       <ImageComponent />
-      {todos.length === 0 ? (
+      {isEmpty ? (
         <EmptyList
           largeImage={emptyLargeImage}
           smallImage={emptySmallImage}
@@ -46,11 +47,11 @@ function ListContainer({
   );
 }
 
-const listStyles = css`
-  /* width: 50%; */
+const listStyles = (isEmpty: boolean) => css`
+  width: 50%;
 
   @media (max-width: 744px) {
-    /* width: 100%; */
+    width: 100%;
   }
 `;
 

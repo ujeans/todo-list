@@ -78,6 +78,7 @@ export default function Home() {
 }
 
 const listStyles = css`
+  width: 100%;
   gap: 24px;
 
   @media (max-width: 744px) {

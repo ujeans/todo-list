@@ -99,8 +99,7 @@ function CheckList({
 }
 
 const listRowContainerStyles = (isCompleted: boolean, detail: boolean) => css`
-  /* width: 100%; */
-  width: ${detail ? "996px" : "588px"};
+  width: 100%;
   height: ${detail ? "64px" : "50px"};
   margin-top: 16px;
   border-radius: ${detail ? "24px" : "27px"};
@@ -111,14 +110,6 @@ const listRowContainerStyles = (isCompleted: boolean, detail: boolean) => css`
 
   &:last-child {
     margin-bottom: ${detail ? "0" : "48px"};
-  }
-
-  @media (max-width: 744px) {
-    width: 696px;
-  }
-
-  @media (max-width: 375px) {
-    width: 344px;
   }
 `;
 
