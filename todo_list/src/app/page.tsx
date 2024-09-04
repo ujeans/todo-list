@@ -68,7 +68,7 @@ export default function Home() {
     <>
       <Container detail={false}>
         {/* 할 일을 입력할 수 있는 SearchBar 컴포넌트 */}
-        <SearchBar onAddTodo={handleAddTodo} />
+        <SearchBar onAddTodo={handleAddTodo} isEmpty={todos.length === 0} />
 
         {/* 할 일 목록과 완료된 목록을 표시하는 Flex 컴포넌트 */}
         <Flex justify="space-between" css={listStyles}>

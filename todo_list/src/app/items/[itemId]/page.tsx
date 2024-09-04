@@ -16,7 +16,7 @@ import { Todo } from "@/types/todo";
 
 import { deleteTodo, getTodoById, updateTodo } from "@/utils/item";
 
-export default function page() {
+export default function DetailPage() {
   const [todos, setTodos] = useState<Todo[]>([]); // 할 일 목록 상태 관리
   const [updatedName, setUpdatedName] = useState<string | null>(null); // 할 일 이름 상태 관리
   const [image, setImage] = useState<string | null>(null); // 이미지 URL 상태 관리
@@ -110,7 +110,12 @@ export default function page() {
         </Flex>
 
         {/* 수정 및 삭제 버튼을 포함하는 Buttons 컴포넌트 */}
-        <Buttons onEdit={handleEdit} onDelete={handleDelete} />
+        <Buttons
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          image={image}
+          memo={currentMemo}
+        />
       </Container>
     </>
   );

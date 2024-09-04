@@ -16,7 +16,7 @@ import AddIcon from "@/assets/icons/add.svg";
 import EditIcon from "@/assets/icons/edit.svg";
 
 // 컴포넌트 테스트
-export default function page() {
+export default function TestPage() {
   // 체크박스 상태를 관리하는 두 개의 useState 훅
   const [firstChecked, setFirstChecked] = useState(false);
   const [secondChecked, setSecondChecked] = useState(true);
