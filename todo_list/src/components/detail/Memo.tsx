@@ -42,7 +42,6 @@ function Memo({ currentMemo = "", onMemoChange }: MemoProps) {
         ref={textAreaRef}
         value={editedMemo}
         onChange={handleChange}
-        placeholder="메모를 입력하세요"
       />
     </MemoContainer>
   );
