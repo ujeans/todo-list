@@ -8,10 +8,13 @@ import Flex from "./Flex";
 import LargeImage from "@/assets/images/large.svg";
 import SmallImage from "@/assets/images/small.svg";
 
+// Gnb (Global Navigation Bar) 컴포넌트를 정의
 function Gnb() {
   return (
+    // Flex 컴포넌트를 사용하여 상단 고정 네비게이션 바를 구성
     <Flex align="center" css={container}>
       <Flex align="center" css={wrapper}>
+        {/* 반응형 이미지 컴포넌트 */}
         <ResponsiveImage />
       </Flex>
     </Flex>
@@ -46,13 +49,15 @@ const wrapper = css`
   }
 `;
 
+// 반응형 이미지 컴포넌트를 정의
 const ResponsiveImage = () => {
   const handleClick = () => {
-    window.location.href = "/";
+    window.location.href = "/"; // 로고 클릭 시 메인 페이지로 이동
   };
 
   return (
     <>
+      {/* 큰 화면에서 표시할 이미지 */}
       <Flex css={largeImageStyle}>
         <Link href="/" passHref legacyBehavior>
           <a onClick={handleClick}>
@@ -60,6 +65,7 @@ const ResponsiveImage = () => {
           </a>
         </Link>
       </Flex>
+      {/* 작은 화면에서 표시할 이미지 */}
       <Flex css={smallImageStyle}>
         <Link href="/" passHref legacyBehavior>
           <a onClick={handleClick}>

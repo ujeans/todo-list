@@ -22,11 +22,11 @@ function ListContainer({
   emptySmallImage,
   emptyMessage,
 }: TodoListBaseProps) {
-  const isEmpty = todos.length === 0;
   return (
-    <Flex direction="column" css={listStyles(isEmpty)}>
+    <Flex direction="column" css={listStyles}>
       <ImageComponent />
-      {isEmpty ? (
+      {/* 할 일 목록이 비어 있으면 EmptyList 컴포넌트를, 아니면 CheckList 컴포넌트를 표시 */}
+      {todos.length === 0 ? (
         <EmptyList
           largeImage={emptyLargeImage}
           smallImage={emptySmallImage}
@@ -47,7 +47,7 @@ function ListContainer({
   );
 }
 
-const listStyles = (isEmpty: boolean) => css`
+const listStyles = css`
   width: 50%;
 
   @media (max-width: 744px) {

@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
+
 import { colors } from "./colorPalette";
 
+// 버튼 색상 스타일을 정의하는 객체
 export const buttonColorMap = {
   default: css`
     background-color: ${colors.slate200};
@@ -28,6 +30,7 @@ export const buttonColorMap = {
   `,
 };
 
+// 버튼 크기 스타일을 정의하는 객체
 export const buttonSizeMap = {
   small: css`
     width: 54.78px;
@@ -40,6 +43,7 @@ export const buttonSizeMap = {
   `,
 };
 
+// 원형 버튼 스타일을 정의하는 객체
 export const circularButtonStyleMap = {
   plus: css`
     width: 64px;
@@ -59,6 +63,11 @@ export const circularButtonStyleMap = {
   `,
 };
 
+// 버튼 색상 타입 정의
 export type ButtonColor = keyof typeof buttonColorMap;
+
+// 버튼 크기 타입 정의
 export type ButtonSize = keyof typeof buttonSizeMap;
+
+// 원형 버튼 스타일 타입 정의
 export type CircularButtonStyle = keyof typeof circularButtonStyleMap;

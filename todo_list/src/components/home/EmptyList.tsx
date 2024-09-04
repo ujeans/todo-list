@@ -5,9 +5,9 @@ import Flex from "../shared/Flex";
 import Text from "../shared/Text";
 
 interface EmptyListProps {
-  largeImage: React.ElementType;
-  smallImage: React.ElementType;
-  message: string;
+  largeImage: React.ElementType; // 큰 화면에서 사용할 이미지 컴포넌트
+  smallImage: React.ElementType; // 작은 화면에서 사용할 이미지 컴포넌트
+  message: string; // 빈 리스트일 때 표시할 메시지
 }
 
 function EmptyList({
@@ -18,9 +18,12 @@ function EmptyList({
   return (
     <Flex justify="center" align="center" direction="column" css={emptyStyles}>
       <StyledImage>
+        {/* 큰 화면에서 사용할 이미지 */}
         <LargeImage className="large" />
+        {/* 작은 화면에서 사용할 이미지 */}
         <SmallImage className="small" />
       </StyledImage>
+      {/* 메시지 텍스트를 줄바꿈하여 표시 */}
       <Text typography="t4" color="slate400">
         {message.split("\n").map((line, index) => (
           <span key={index}>

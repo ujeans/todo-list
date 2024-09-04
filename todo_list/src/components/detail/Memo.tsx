@@ -13,22 +13,27 @@ interface MemoProps {
 }
 
 function Memo({ currentMemo = "", onMemoChange }: MemoProps) {
+  // 메모 텍스트 상태 관리
   const [editedMemo, setEditedMemo] = useState(currentMemo || "");
 
+  // 메모 텍스트가 변경될 때 호출되는 함수
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newMemo = event.target.value;
-    setEditedMemo(newMemo);
-    onMemoChange(newMemo);
+    setEditedMemo(newMemo); // 상태 업데이트
+    onMemoChange(newMemo); // 부모 컴포넌트로 변경된 메모 전달
   };
 
   return (
     <MemoContainer>
+      {/* 배경 스타일을 위한 MemoImage 컴포넌트 */}
       <MemoStyles />
 
+      {/* 메모 제목 표시 */}
       <MemoText typography="t3" color="amber800">
         Memo
       </MemoText>
 
+      {/* 메모 내용을 입력하는 텍스트 영역 */}
       <MemoTextArea value={editedMemo} onChange={handleChange} />
     </MemoContainer>
   );

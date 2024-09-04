@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+// 타이포그래피 스타일을 정의한 객체
 export const typographyMap = {
   t1: css`
     font-size: 20px;
@@ -23,4 +24,5 @@ export const typographyMap = {
   `,
 };
 
+// Typography 타입을 정의하여 typographyMap 객체의 키를 타입으로 사용
 export type Typography = keyof typeof typographyMap;

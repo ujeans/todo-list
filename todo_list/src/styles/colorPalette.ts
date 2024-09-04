@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 
+// CSS 변수로 정의된 색상 팔레트를 전역적으로 적용
 export const colorPalette = css`
   :root {
     --slate900: #0f172a;
@@ -20,6 +21,7 @@ export const colorPalette = css`
   }
 `;
 
+// 색상 팔레트를 JavaScript 객체로 정의
 export const colors = {
   slate900: "var(--slate900)",
   slate800: "var(--slate800)",
@@ -38,4 +40,5 @@ export const colors = {
   gray50: "var(--gray50)",
 };
 
+// Colors 타입을 정의하여 colors 객체의 키를 타입으로 사용
 export type Colors = keyof typeof colors;

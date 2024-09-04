@@ -15,7 +15,9 @@ import CheckIcon from "@/assets/icons/check.svg";
 import AddIcon from "@/assets/icons/add.svg";
 import EditIcon from "@/assets/icons/edit.svg";
 
+// 컴포넌트 테스트
 export default function page() {
+  // 체크박스 상태를 관리하는 두 개의 useState 훅
   const [firstChecked, setFirstChecked] = useState(false);
   const [secondChecked, setSecondChecked] = useState(true);
 
@@ -25,6 +27,7 @@ export default function page() {
         marginTop: 100,
       }}
     >
+      {/* 다양한 텍스트 스타일 테스트 */}
       <Text typography="t1" display="block" color="amber800">
         NanumSquare
       </Text>
@@ -37,6 +40,7 @@ export default function page() {
 
       <Line />
 
+      {/* 다양한 버튼 스타일 테스트 */}
       <ButtonComponent color="default" icon={<PlusIcon />}>
         추가하기
       </ButtonComponent>
@@ -53,6 +57,7 @@ export default function page() {
         수정완료
       </ButtonComponent>
 
+      {/* 아이콘만 있는 작은 버튼 테스트 */}
       <ButtonComponent
         color="default"
         size="small"
@@ -66,6 +71,7 @@ export default function page() {
 
       <Line />
 
+      {/* 원형 버튼 스타일 테스트 */}
       <CircularButtonComponent styleType="plus">
         <AddIcon />
       </CircularButtonComponent>
@@ -75,10 +81,12 @@ export default function page() {
 
       <Line />
 
+      {/* 검색창 컴포넌트 테스트 */}
       <Search placeholder="할 일을 입력해주세요" />
 
       <Line />
 
+      {/* 체크리스트 항목 테스트 */}
       <CheckList
         itemId={1}
         name={"비타민 챙겨 먹기"}
@@ -92,6 +100,7 @@ export default function page() {
         onClick={() => setFirstChecked(!secondChecked)}
       />
 
+      {/* 상세 보기 모드에서의 체크리스트 항목 테스트 */}
       <CheckList
         itemId={3}
         name={"비타민 챙겨 먹기"}
