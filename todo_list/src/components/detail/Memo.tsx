@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 
 import { colors } from "@/styles/colorPalette";
@@ -13,8 +13,8 @@ interface MemoProps {
 }
 
 function Memo({ currentMemo = "", onMemoChange }: MemoProps) {
-  // 메모 텍스트 상태 관리
   const [editedMemo, setEditedMemo] = useState(currentMemo || "");
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   // 메모 텍스트가 변경될 때 호출되는 함수
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,18 +23,27 @@ function Memo({ currentMemo = "", onMemoChange }: MemoProps) {
     onMemoChange(newMemo); // 부모 컴포넌트로 변경된 메모 전달
   };
 
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "auto"; // 높이를 초기화한 후
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`; // 텍스트 높이에 맞게 조정
+    }
+  }, [editedMemo]); // editedMemo가 변경될 때마다 높이를 조정
+
   return (
     <MemoContainer>
-      {/* 배경 스타일을 위한 MemoImage 컴포넌트 */}
       <MemoStyles />
 
-      {/* 메모 제목 표시 */}
       <MemoText typography="t3" color="amber800">
         Memo
       </MemoText>
 
-      {/* 메모 내용을 입력하는 텍스트 영역 */}
-      <MemoTextArea value={editedMemo} onChange={handleChange} />
+      <MemoTextArea
+        ref={textAreaRef}
+        value={editedMemo}
+        onChange={handleChange}
+        placeholder="메모를 입력하세요"
+      />
     </MemoContainer>
   );
 }
@@ -63,15 +72,16 @@ const MemoText = styled(Text)`
   position: absolute;
   top: 24px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
 `;
 
 const MemoTextArea = styled.textarea`
   position: absolute;
-  top: 40px;
-  left: 20px;
+  top: 55%;
+  left: 50%;
   width: calc(100% - 32px);
-  height: calc(100% - 70px);
+  max-height: calc(100% - 70px);
+
   background: transparent;
   border: none;
   color: ${colors.slate800};
@@ -82,7 +92,11 @@ const MemoTextArea = styled.textarea`
   padding: 10px;
   box-sizing: border-box;
   border-radius: 12px;
-  overflow-y: auto;
+  line-height: 1.5; /* 텍스트 줄 간격 */
+  text-align: center; /* 텍스트 수평 정렬 */
+  transform: translate(-50%, -50%); /* 수직/수평 가운데 정렬 */
+  overflow-y: auto; /* 스크롤 자동 처리 */
+  height: auto;
 
   ::-webkit-scrollbar {
     width: 4px;
